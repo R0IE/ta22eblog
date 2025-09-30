@@ -32,6 +32,9 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         $post = new Post($request->validated());
+        if($request->user()){
+            $post->user()->associate($request->user());
+        }
         if($request->has('image')){
             $post->image = $request->file('image')->store('', ['disk'=>'public']);
         }

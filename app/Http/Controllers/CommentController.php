@@ -29,7 +29,12 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request)
     {
-        //
+        Comment::create([
+            'body' => $request->body,
+            'post_id' => $request->post_id,
+            'user_id' => auth()->id(),
+        ]);
+        return redirect()->back()->with('success', 'Comment posted successfully!');
     }
 
     /**
